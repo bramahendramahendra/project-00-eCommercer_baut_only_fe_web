@@ -272,44 +272,21 @@
                                                 </div>
                                             </div> -->
 
-                                            <div class="relative bg-white">
-                                                <!-- <div class="mx-auto max-w-7xl px-8"> -->
+                                            <div class="relative bg-white" x-data="dropdown()">
                                                 <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                                                     <div class="grid grid-cols-2 gap-x-8 gap-y-10 py-16">
                                                         <div class="col-start-2 grid grid-cols-2 gap-x-8">
-                                                            <div class="group relative text-base sm:text-sm">
+                                                            <div class="group relative text-base sm:text-sm"
+                                                                x-show="showImage">
                                                                 <div
                                                                     class="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
-                                                                    <img src="https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg"
+                                                                    <img x-bind:src="selectedMenu && selectedMenu.image ? selectedMenu.image : '/src/img/DALL·E 2023-10-26 21.14.57 - Vector illustration of an e-commerce logo featuring a stylized shopping cart filled with bolts and nuts. The design incorporates a gradient transition.png'"
                                                                         alt="Models sitting back to back, wearing Basic Tee in black and bone."
                                                                         class="object-cover object-center">
                                                                 </div>
-                                                                <a href="#"
-                                                                    class="mt-6 block font-medium text-gray-900">
-                                                                    <span class="absolute inset-0 z-10"
-                                                                        aria-hidden="true"></span>
-                                                                    New Arrivals
-                                                                </a>
-                                                                <p aria-hidden="true" class="mt-1">Shop now</p>
-                                                            </div>
-                                                            <div class="group relative text-base sm:text-sm">
-                                                                <div
-                                                                    class="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
-                                                                    <img src="https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg"
-                                                                        alt="Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees."
-                                                                        class="object-cover object-center">
-                                                                </div>
-                                                                <a href="#"
-                                                                    class="mt-6 block font-medium text-gray-900">
-                                                                    <span class="absolute inset-0 z-10"
-                                                                        aria-hidden="true"></span>
-                                                                    Basic Tees
-                                                                </a>
-                                                                <p aria-hidden="true" class="mt-1">Shop now</p>
                                                             </div>
                                                         </div>
-                                                        <!-- Belum di sesuaikan  -->
-                                                        <div
+                                                        <div @mouseleave="selectedMenu ? null : activeMenu = null"
                                                             class="row-start-1 grid grid-cols-3 gap-x-8 gap-y-10 text-sm">
                                                             <div>
                                                                 <p id="Clothing-heading"
@@ -317,105 +294,34 @@
                                                                     Clothing</p>
                                                                 <ul role="list" aria-labelledby="Clothing-heading"
                                                                     class="mt-6 space-y-6 sm:mt-4 sm:space-y-4">
-                                                                    <li class="flex">
-                                                                        <a href="#"
-                                                                            class="hover:text-baut-color-red-200">Tops</a>
-                                                                    </li>
-                                                                    <li class="flex">
-                                                                        <a href="#"
-                                                                            class="hover:text-baut-color-red-200">Dresses</a>
-                                                                    </li>
-                                                                    <li class="flex">
-                                                                        <a href="#"
-                                                                            class="hover:text-baut-color-red-200">Pants</a>
-                                                                    </li>
-                                                                    <li class="flex">
-                                                                        <a href="#"
-                                                                            class="hover:text-baut-color-red-200">Denim</a>
-                                                                    </li>
-                                                                    <li class="flex">
-                                                                        <a href="#"
-                                                                            class="hover:text-baut-color-red-200">Sweaters</a>
-                                                                    </li>
-                                                                    <li class="flex">
-                                                                        <a href="#"
-                                                                            class="hover:text-baut-color-red-200">T-Shirts</a>
-                                                                    </li>
-                                                                    <li class="flex">
-                                                                        <a href="#"
-                                                                            class="hover:text-baut-color-red-200">Jackets</a>
-                                                                    </li>
-                                                                    <li class="flex">
-                                                                        <a href="#"
-                                                                            class="hover:text-baut-color-red-200">Activewear</a>
-                                                                    </li>
-                                                                    <li class="flex">
-                                                                        <a href="#"
-                                                                            class="hover:text-baut-color-red-200">Browse
-                                                                            All</a>
-                                                                    </li>
+                                                                    <template x-for="(item, index) in clothingMenu"
+                                                                        :key="index">
+                                                                        <li class="flex">
+                                                                            <a href="#"
+                                                                                class="hover:text-baut-color-red-200"
+                                                                                :class="{'text-red-500 ': selectedMenu === item}"
+                                                                                @click.prevent="setActiveClothing(item)"
+                                                                                x-text="item.name">
+                                                                            </a>
+                                                                        </li>
+                                                                    </template>
                                                                 </ul>
                                                             </div>
-                                                            <div>
+                                                            <div x-show="activeMenu" @mouseleave="handleMouseLeave()">
                                                                 <p id="Accessories-heading"
                                                                     class="font-medium text-gray-900">Accessories</p>
                                                                 <ul role="list" aria-labelledby="Accessories-heading"
                                                                     class="mt-6 space-y-6 sm:mt-4 sm:space-y-4">
-                                                                    <li class="flex">
-                                                                        <a href="#"
-                                                                            class="hover:text-baut-color-red-200">Watches</a>
-                                                                    </li>
-                                                                    <li class="flex">
-                                                                        <a href="#"
-                                                                            class="hover:text-baut-color-red-200">Wallets</a>
-                                                                    </li>
-                                                                    <li class="flex">
-                                                                        <a href="#"
-                                                                            class="hover:text-baut-color-red-200">Bags</a>
-                                                                    </li>
-                                                                    <li class="flex">
-                                                                        <a href="#"
-                                                                            class="hover:text-baut-color-red-200">Sunglasses</a>
-                                                                    </li>
-                                                                    <li class="flex">
-                                                                        <a href="#"
-                                                                            class="hover:text-baut-color-red-200">Hats</a>
-                                                                    </li>
-                                                                    <li class="flex">
-                                                                        <a href="#"
-                                                                            class="hover:text-baut-color-red-200">Belts</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            <div>
-                                                                <p id="Brands-heading"
-                                                                    class="font-medium text-gray-900">
-                                                                    Brands</p>
-                                                                <ul role="list" aria-labelledby="Brands-heading"
-                                                                    class="mt-6 space-y-6 sm:mt-4 sm:space-y-4">
-                                                                    <li class="flex">
-                                                                        <a href="#"
-                                                                            class="hover:text-baut-color-red-200">Full
-                                                                            Nelson</a>
-                                                                    </li>
-                                                                    <li class="flex">
-                                                                        <a href="#"
-                                                                            class="hover:text-baut-color-red-200">My
-                                                                            Way</a>
-                                                                    </li>
-                                                                    <li class="flex">
-                                                                        <a href="#"
-                                                                            class="hover:text-baut-color-red-200">Re-Arranged</a>
-                                                                    </li>
-                                                                    <li class="flex">
-                                                                        <a href="#"
-                                                                            class="hover:text-baut-color-red-200">Counterfeit</a>
-                                                                    </li>
-                                                                    <li class="flex">
-                                                                        <a href="#"
-                                                                            class="hover:text-baut-color-red-200">Significant
-                                                                            Other</a>
-                                                                    </li>
+                                                                    <template x-for="(item, index) in accessoriesMenu"
+                                                                        :key="index">
+                                                                        <li class="flex">
+                                                                            <a href="#"
+                                                                                class="hover:text-baut-color-red-200"
+                                                                                :class="{'text-red-500 ':tempSelectedAccessory === item}"
+                                                                                @click.prevent="setActiveAccessory(item)"
+                                                                                x-text="item.name"></a>
+                                                                        </li>
+                                                                    </template>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -432,7 +338,6 @@
                                         Kami</a>
                                 </div>
                             </div>
-
                             <div class="ml-auto flex items-center">
                                 <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                                     <a href="#"
